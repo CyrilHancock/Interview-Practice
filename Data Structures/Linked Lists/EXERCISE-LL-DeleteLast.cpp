@@ -3,42 +3,30 @@
 using namespace std;
 
 
-	// CREATE NODE CLASS HERE //
-	//                        //
-	//                        //
-	//                        //
-	//                        //
-	////////////////////////////
-
-    class Node{
-        public:
+class Node { 
+    public:
         int value;
-        Node* next=nullptr;
-        Node(int value){
-            this->value=value;
-            next=nullptr;
+        Node* next;
+
+        Node(int value) {
+            this->value = value;
+            next = nullptr;
         }
-    };
+}; 
 
 
 class LinkedList {
     private:
-		Node* head;
+        Node* head;
         Node* tail;
-        int length=0;
-    public:
-		// CREATE LL CONSTRUCTOR HERE //
-		//                            //
-		//                            //
-		//                            //
-		//                            //
-		////////////////////////////////
-        LinkedList(int value){
-            Node* newNode=new Node(value);
-            head=newNode;
-            tail=newNode;
-            length=1;
+        int length;
 
+    public:
+        LinkedList(int value) {
+            Node* newNode = new Node(value);
+            head = newNode;
+            tail = newNode;
+            length = 1;
         }
 
         ~LinkedList() {
@@ -77,14 +65,20 @@ class LinkedList {
         void getLength() {
             cout << "Length: " << length << endl;
         }
-        void append(int value){
-            Node* newNode=new Node(value);
-            Node* temp=tail;
-            temp->next=newNode;
-            tail=newNode;
-            length+=1;
+
+        void append(int value) {
+            Node* newNode = new Node(value);
+            if (length == 0) {
+                head = newNode;
+                tail = newNode;
+            } else {
+                tail->next = newNode;
+                tail = newNode;
+            }
+            length++;
         }
-        void deleteLast(){
+
+            void deleteLast(){
             Node* temp=head;
             Node* prev=temp;
             if(head==tail){
@@ -103,42 +97,54 @@ class LinkedList {
             }
 
         }
-        void preppend(int value){
-            Node* newNode=new Node(value);
-            newNode->next=head;
-            head=newNode;
-        }
-};
 
+};
 
 
 
 int main() {
         
-    LinkedList* myLinkedList = new LinkedList(4);
-    myLinkedList->append(10);
-    myLinkedList->getHead();
-    myLinkedList->getTail();
-    myLinkedList->getLength();
-    // myLinkedList->deleteLast();
-    myLinkedList->preppend(1000);
-    myLinkedList->preppend(1000);
-    myLinkedList->preppend(1000);
+    LinkedList* myLinkedList = new LinkedList(1);
+    myLinkedList->append(2);
 
-    cout << "\nLinked List:\n";
+
+    cout << "LL before deleteLast():\n";
     myLinkedList->printList();
+
+
+    myLinkedList->deleteLast();
+    cout << "\n\nLL after 1st deleteLast():\n";
+    myLinkedList->printList();
+
+
+    myLinkedList->deleteLast();
+    cout << "\n\nLL after 2nd deleteLast():\n";
+    myLinkedList->printList();
+
+
+    myLinkedList->deleteLast();
+    cout << "\n\nLL after 3rd deleteLast():\n";
+    myLinkedList->printList();
+
 
     /*  
         EXPECTED OUTPUT:
     	----------------
-        Head: 4
-        Tail: 4
-        Length: 1
+        LL before deleteLast():
+        1
+        2
 
-        Linked List:
-        4
 
+        LL after 1st deleteLast():
+        1
+
+
+        LL after 2nd deleteLast():
+
+
+        LL after 3rd deleteLast():
+        
     */
-       
+        
 }
 
